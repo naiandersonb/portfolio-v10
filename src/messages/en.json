@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "title": "Naianderson Bruno · Developer",
+    "description": "Portfolio of Naianderson Bruno, a developer building web products with React, Next.js and TypeScript."
+  },
+  "header": {
+    "logoLabel": "Naianderson Bruno, home",
+    "menuLabel": "Sections",
+    "languageSwitcher": "Language",
+    "openTerminal": "Open terminal"
+  },
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "name": "Naianderson Bruno",
+    "role": "Developer"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "backHome": "Home",
+    "contact": "Let's talk"
+  }
+}
