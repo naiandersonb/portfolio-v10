@@ -89,6 +89,69 @@ body {
     background: var(--lavender);
   }
 
+  /* Square lavender bullets. */
+  .tick-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tick-list > li {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .tick-list > li::before {
+    content: "";
+    flex: none;
+    width: 8px;
+    height: 8px;
+    background: var(--lavender);
+    transform: translateY(-2px);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 24px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      box-shadow 0.2s,
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+
+  .btn-solid {
+    background: var(--lavender);
+    color: var(--bg);
+  }
+
+  .btn-solid:hover {
+    background: #ded4f7;
+    box-shadow: 0 0 40px rgb(211 199 243 / 0.25);
+  }
+
+  .btn-outline {
+    border-color: var(--line-strong);
+    color: var(--white);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--white);
+  }
+
   .cursor-blink {
     display: inline-block;
     width: 0.6em;

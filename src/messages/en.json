@@ -18,6 +18,12 @@
     "name": "Naianderson Bruno",
     "role": "Developer"
   },
+  "hero": {
+    "label": "Introduction",
+    "contactCta": "Let's talk",
+    "downloadCv": "Download cv.pdf",
+    "statsLabel": "Numbers"
+  },
   "notFound": {
     "title": "Page not found",
     "backHome": "Home",

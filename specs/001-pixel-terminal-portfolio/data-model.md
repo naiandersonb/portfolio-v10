@@ -23,8 +23,7 @@ Todo o conteúdo é estático, versionado no repositório e validado em tempo de
 |-------|------|--------|-------|
 | name / fullName | string | ✓ | "Naianderson Bruno" (migrado de `resume.ts`) |
 | role | Localized<string> | ✓ | Hero e metadata |
-| tagline | Localized<string> | ✓ | Saída de terminal no hero |
-| headlines | Localized<string[]> | ✓ | Ciclo do efeito de digitação (≥1) |
+| promptCommand | string | ✓ | Comando digitado após `~ $` no hero (hoje `whoami`); substitui `tagline`/`headlines` desde a v2 |
 | bio | Localized<string> | ✓ | Seção `whoami` |
 | location | string | – | |
 | email | string | ✓ | Ação copiar (FR-015) |

@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { JetBrains_Mono, Michroma, Outfit } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as readLocaleParam } from "next/root-params";
@@ -24,6 +26,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return { title: t("title"), description: t("description") };
 }
 
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {

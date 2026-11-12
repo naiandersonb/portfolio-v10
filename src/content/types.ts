@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image";
 import type { GlyphId } from "@/artwork/catalog";
 import type { AppLocale } from "@/i18n/routing";
 
@@ -22,14 +23,14 @@ export type Profile = {
   fullName: string;
   role: Localized<string>;
   location: Localized<string>;
-  tagline: Localized<string>;
-  headlines: Localized<string[]>;
+  /** Command typed after the hero prompt ("~ $ whoami"). */
+  promptCommand: string;
   bio: Localized<string>;
   stack: string[];
   email: string;
   /** Path of the CV PDF per locale; null uses the other locale's file (FR-010a). */
   resumePath: Localized<string | null>;
-  heroImage: { src: string; alt: Localized<string> };
+  heroImage: { src: StaticImageData; alt: Localized<string> };
   /** Real figures only; no projects count while US3 is deferred. */
   stats: HeroStat[];
 };

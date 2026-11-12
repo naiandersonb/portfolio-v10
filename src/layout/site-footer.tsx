@@ -1,8 +1,15 @@
 import { getTranslations } from "next-intl/server";
+import { cacheLife } from "next/cache";
+
+/** Read once and cached: the site is static, so the year is the one of the last build. */
+async function getCopyrightYear() {
+  "use cache";
+  cacheLife("max");
+  return new Date().getFullYear();
+}
 
 export async function SiteFooter() {
-  const t = await getTranslations("footer");
-  const year = new Date().getFullYear();
+  const [t, year] = await Promise.all([getTranslations("footer"), getCopyrightYear()]);
 
   return (
     <footer className="mt-section">
