@@ -10,7 +10,6 @@ export function SiteHeader() {
       <header className="relative flex min-h-20 items-center justify-between gap-4 border-b border-line">
         <Logo />
 
-        {/* <div className="flex flex-1 items-center justify-end gap-2 lg:justify-center"></div> */}
         <div className="flex items-center gap-2 sm:gap-4">
           <CommandMenu />
           <LanguageSwitcher />
