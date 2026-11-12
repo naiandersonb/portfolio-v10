@@ -1,8 +1,5 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
-import { type FormEvent, type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { Glyph } from "@/artwork/glyph";
 import { LogoMark } from "@/artwork/logo-mark";
 import { cn } from "@/components/class-names";
@@ -12,8 +9,24 @@ import { profile } from "@/content/profile";
 import { getResumeHref } from "@/content/resume-link";
 import { TERMINAL_COPY } from "@/content/terminal-copy";
 import type { Locale } from "@/content/types";
+import { useReducedMotion } from "motion/react";
+import { useLocale, useTranslations } from "next-intl";
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { completeCommand } from "./parse-command";
-import { line, type OutputLine, runCommand, type TerminalEffect, type Tone } from "./run-command";
+import {
+  line,
+  type OutputLine,
+  runCommand,
+  type TerminalEffect,
+  type Tone,
+} from "./run-command";
 
 type TerminalProps = {
   open: boolean;
@@ -21,12 +34,24 @@ type TerminalProps = {
   performEffect: (effect: TerminalEffect) => Promise<OutputLine | null>;
 };
 
-const TONE_CLASS: Record<Tone, string> = { text: "text-white", muted: "text-muted", accent: "text-lavender" };
-const SWATCHES = ["bg-bg", "bg-card", "bg-muted", "bg-lavender", "bg-purple", "bg-violet", "bg-white"];
+const TONE_CLASS: Record<Tone, string> = {
+  text: "text-white",
+  muted: "text-muted",
+  accent: "text-lavender",
+};
+const SWATCHES = [
+  "bg-bg",
+  "bg-card",
+  "bg-muted",
+  "bg-lavender",
+  "bg-purple",
+  "bg-violet",
+  "bg-white",
+];
 
 function Kbd({ children }: { children: string }) {
   return (
-    <kbd className="inline-flex h-6 min-w-6 items-center justify-center rounded-[4px] border border-line-strong px-1.5 font-mono text-[12px] leading-none text-white">
+    <kbd className="inline-flex h-6 min-w-6 items-center justify-center rounded-sm border border-line-strong px-1.5 font-mono text-[12px] leading-none text-white">
       {children}
     </kbd>
   );
@@ -46,7 +71,10 @@ function NeofetchBlock({ rows }: { rows: [string, string][] }) {
         ))}
         <span aria-hidden="true" className="mt-2 flex gap-1">
           {SWATCHES.map((swatch) => (
-            <span key={swatch} className={cn("size-4 border border-line", swatch)} />
+            <span
+              key={swatch}
+              className={cn("size-4 border border-line", swatch)}
+            />
           ))}
         </span>
       </div>
@@ -57,7 +85,7 @@ function NeofetchBlock({ rows }: { rows: [string, string][] }) {
 function OutputRow({ entry }: { entry: OutputLine }) {
   if (entry.kind === "neofetch") return <NeofetchBlock rows={entry.rows} />;
   return (
-    <p className="min-h-[1.6em] break-words whitespace-pre-wrap">
+    <p className="min-h-[1.6em] wrap-break-word whitespace-pre-wrap">
       {entry.segments.map((segment, index) => (
         <span key={index} className={TONE_CLASS[segment.tone]}>
           {segment.text}
@@ -69,7 +97,10 @@ function OutputRow({ entry }: { entry: OutputLine }) {
 
 function resumeFile(locale: Locale) {
   const href = getResumeHref(locale);
-  return { fileName: href.split("/").pop() ?? href, isFallback: profile.resumePath[locale] === null };
+  return {
+    fileName: href.split("/").pop() ?? href,
+    isFallback: profile.resumePath[locale] === null,
+  };
 }
 
 /** Full-screen command dialog (FR-012, R4): native <dialog> gives the focus trap, Escape and focus return. */
@@ -82,7 +113,9 @@ export function Terminal({ open, onClose, performEffect }: TerminalProps) {
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [lines, setLines] = useState<OutputLine[]>(() => [line(pick(TERMINAL_COPY.welcome, locale), "muted")]);
+  const [lines, setLines] = useState<OutputLine[]>(() => [
+    line(pick(TERMINAL_COPY.welcome, locale), "muted"),
+  ]);
   const [value, setValue] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
@@ -126,7 +159,12 @@ export function Terminal({ open, onClose, performEffect }: TerminalProps) {
     setHistoryIndex(null);
     if (input.trim()) setHistory((entries) => [...entries, input.trim()]);
 
-    const result = runCommand(input, { locale, registry: COMMANDS, reducedMotion, cv: resumeFile(locale) });
+    const result = runCommand(input, {
+      locale,
+      registry: COMMANDS,
+      reducedMotion,
+      cv: resumeFile(locale),
+    });
     setLines((current) => [...current, ...result.lines]);
 
     for (const effect of result.effects) {
@@ -149,7 +187,10 @@ export function Terminal({ open, onClose, performEffect }: TerminalProps) {
     }
     if (event.key === "ArrowUp" && history.length > 0) {
       event.preventDefault();
-      const index = historyIndex === null ? history.length - 1 : Math.max(0, historyIndex - 1);
+      const index =
+        historyIndex === null
+          ? history.length - 1
+          : Math.max(0, historyIndex - 1);
       setHistoryIndex(index);
       setValue(history[index]);
       return;
@@ -172,7 +213,9 @@ export function Terminal({ open, onClose, performEffect }: TerminalProps) {
       <header className="flex min-h-20 shrink-0 items-center gap-4 border-b border-line px-6 lg:px-12">
         <Glyph id="terminal" size={24} decorative className="text-lavender" />
         <h2 className="display text-[14px]">{t("title")}</h2>
-        <span className="hidden font-mono text-[13px] text-muted sm:inline">{t("path")}</span>
+        <span className="hidden font-mono text-[13px] text-muted sm:inline">
+          {t("path")}
+        </span>
         <span className="ml-auto hidden sm:inline-flex">
           <Kbd>ESC</Kbd>
         </span>
@@ -190,14 +233,17 @@ export function Terminal({ open, onClose, performEffect }: TerminalProps) {
         <div
           ref={outputRef}
           aria-live="polite"
-          className="mx-auto w-full max-w-[960px] flex-1 overflow-y-auto py-6 font-mono text-[15px] leading-[1.6]"
+          className="mx-auto w-full max-w-240 flex-1 overflow-y-auto py-6 font-mono text-[15px] leading-[1.6]"
         >
           {lines.map((entry, index) => (
             <OutputRow key={index} entry={entry} />
           ))}
         </div>
 
-        <form onSubmit={submit} className="mx-auto w-full max-w-[960px] shrink-0 pb-4">
+        <form
+          onSubmit={submit}
+          className="mx-auto w-full max-w-240 shrink-0 pb-4"
+        >
           <label
             htmlFor={inputId}
             className="flex min-h-14 items-center gap-3 rounded-button border border-line-control px-4 font-mono text-[15px] focus-within:border-white"

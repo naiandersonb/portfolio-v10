@@ -120,15 +120,16 @@ test.describe("menu", () => {
 
   test("every terminal destination is reachable from the menu (SC-011)", async ({ page, isMobile }) => {
     await page.goto("/pt-BR");
+    await page.waitForLoadState("networkidle");
     if (isMobile) await page.getByRole("button", { name: "Menu" }).click();
 
-    const menu = page.getByRole("navigation", { name: "Seções" });
+    const menu = page.getByRole("navigation", { name: "Seções" }).filter({ visible: true });
     for (const [name, hash] of [
       ["Início", "#top"],
       ["Sobre", "#about"],
       ["Contato", "#contact"],
     ]) {
-      await expect(menu.getByRole("link", { name, exact: true }).filter({ visible: true })).toHaveAttribute("href", hash);
+      await expect(menu.getByRole(isMobile ? "menuitem" : "link", { name, exact: true })).toHaveAttribute("href", hash);
     }
   });
 
@@ -142,14 +143,31 @@ test.describe("menu", () => {
     );
   });
 
-  test("the mobile menu opens and closes", async ({ page, isMobile }) => {
-    test.skip(!isMobile, "the disclosure is the small-screen menu");
+  test("the mobile menu sits after the terminal button and opens as a dropdown", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "the dropdown is the small-screen menu");
     await page.goto("/pt-BR");
-    const toggle = page.getByRole("button", { name: "Menu" });
-    await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await page.waitForLoadState("networkidle");
 
-    await page.getByRole("navigation", { name: "Seções" }).getByRole("link", { name: "Sobre" }).click();
-    await expect(page.getByRole("button", { name: "Menu" })).toHaveAttribute("aria-expanded", "false");
+    const terminalButton = page.getByRole("button", { name: "Abrir terminal" });
+    const toggle = page.getByRole("button", { name: "Menu" });
+    const [terminalBox, toggleBox] = await Promise.all([terminalButton.boundingBox(), toggle.boundingBox()]);
+    expect(toggleBox!.x).toBeGreaterThan(terminalBox!.x);
+
+    await toggle.click();
+    const menu = page.getByRole("menu", { name: "Seções" });
+    await expect(menu).toBeVisible();
+    await expect(menu.getByRole("menuitem", { name: "Início" })).toBeFocused();
+    await expect(menu.getByRole("menuitem", { name: "Início" })).toHaveAttribute("aria-current", "location");
+
+    await page.keyboard.press("ArrowDown");
+    await expect(menu.getByRole("menuitem", { name: "Sobre" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(page.getByRole("button", { name: "Menu" })).toBeFocused();
+
+    await page.getByRole("button", { name: "Menu" }).click();
+    await page.getByRole("menuitem", { name: "Contato" }).click();
+    await expect(page.getByRole("menu")).toBeHidden();
+    await expect(page).toHaveURL(/#contact$/);
   });
 });

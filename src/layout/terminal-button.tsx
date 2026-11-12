@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Glyph } from "@/artwork/glyph";
 import CommandButton from "@/components/kokonutui/command-button";
 import { useTerminal } from "@/terminal/terminal-root";
+import { useTranslations } from "next-intl";
 
 /** `>_` entry point to the terminal; the keycaps show the shortcut from md up (FR-012a). */
 export function TerminalButton() {
