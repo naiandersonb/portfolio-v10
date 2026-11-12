@@ -6,6 +6,7 @@ import { createContext, type ReactNode, use, useCallback, useMemo, useState } fr
 import { COMMANDS } from "@/content/commands";
 import { profile } from "@/content/profile";
 import { getResumeHref } from "@/content/resume-link";
+import { copyText } from "@/hooks/use-copy-to-clipboard";
 import { TERMINAL_COPY } from "@/content/terminal-copy";
 import { pick } from "@/content/localize";
 import type { Locale } from "@/content/types";
@@ -68,7 +69,7 @@ export function TerminalRoot({ children }: { children: ReactNode }) {
           return null;
         case "copyEmail":
           try {
-            await navigator.clipboard.writeText(profile.email);
+            await copyText(profile.email);
             return line(fill(pick(TERMINAL_COPY.emailCopied, locale), { email: profile.email }), "accent");
           } catch {
             // Clipboard denied or unavailable: the address is still printed so it can be copied by hand.

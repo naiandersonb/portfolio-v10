@@ -75,6 +75,8 @@ export type SocialLink = {
   url: Url;
   icon: GlyphId;
   label: Localized<string>;
+  /** Short visible text, e.g. "in/naianderson-bruno". */
+  display: string;
 };
 
 export type TerminalAction =

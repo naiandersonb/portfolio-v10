@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/layout/site-footer";
 import { SiteHeader } from "@/layout/site-header";
 import { AboutSection } from "@/sections/about-section";
+import { ContactSection } from "@/sections/contact-section";
 import { EducationSection } from "@/sections/education-section";
 import { ExperienceSection } from "@/sections/experience-section";
 import { Hero } from "@/sections/hero";
@@ -16,8 +17,7 @@ export default function HomePage() {
         <ServicesSection />
         <ExperienceSection />
         <EducationSection />
-        {/* Anchor the contact section fills in (US5); kept now so in-page links already resolve. */}
-        <div id="contact" />
+        <ContactSection />
       </main>
       <SiteFooter />
     </>

@@ -101,7 +101,7 @@ Navegação anterior/próximo é **derivada** (projetos com `caseStudy`, ordenad
 
 ### SocialLink (N)
 
-`network` (string), `url` (Url), `icon` (GlyphId), `label` (Localized<string>, para leitores de tela).
+`network` (string), `url` (Url), `icon` (GlyphId), `label` (Localized<string>, para leitores de tela), `display` (string, texto curto visível, ex.: `in/naianderson-bruno`).
 
 ### TerminalCommand (N) — ver [contracts/terminal-commands.md](./contracts/terminal-commands.md)
 

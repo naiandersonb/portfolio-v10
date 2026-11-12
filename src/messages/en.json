@@ -67,5 +67,15 @@
   "education": {
     "label": "Education",
     "title": "Always learning"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Shall we build <accent>something</accent> together?",
+    "copy": "Copy",
+    "copyLabel": "Copy email",
+    "copied": "✓ email copied",
+    "copyFailed": "✗ couldn’t copy — select the email above",
+    "linksLabel": "Profiles",
+    "newTab": "opens in a new tab"
   }
 }

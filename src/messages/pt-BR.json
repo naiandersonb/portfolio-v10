@@ -67,5 +67,15 @@
   "education": {
     "label": "Formação",
     "title": "Estudo contínuo"
+  },
+  "contact": {
+    "label": "Contato",
+    "title": "Vamos construir <accent>algo</accent> juntos?",
+    "copy": "Copiar",
+    "copyLabel": "Copiar e-mail",
+    "copied": "✓ email copiado",
+    "copyFailed": "✗ não foi possível copiar — selecione o e-mail acima",
+    "linksLabel": "Redes",
+    "newTab": "abre em nova aba"
   }
 }

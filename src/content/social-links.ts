@@ -8,17 +8,20 @@ export const SOCIAL_LINKS: SocialLink[] = [
     url: "https://github.com/naiandersonb",
     icon: "github",
     label: { "pt-BR": "GitHub: naiandersonb", en: "GitHub: naiandersonb" },
+    display: "github.com/naiandersonb",
   },
   {
     network: "linkedin",
     url: "https://www.linkedin.com/in/naianderson-bruno",
     icon: "linkedin",
     label: { "pt-BR": "LinkedIn: naianderson-bruno", en: "LinkedIn: naianderson-bruno" },
+    display: "in/naianderson-bruno",
   },
   {
     network: "email",
     url: `mailto:${profile.email}`,
     icon: "mail",
     label: { "pt-BR": `E-mail: ${profile.email}`, en: `Email: ${profile.email}` },
+    display: profile.email,
   },
 ];
