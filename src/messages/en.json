@@ -44,5 +44,28 @@
     "complete": "complete",
     "closeHint": "close",
     "openHint": "opens the terminal"
+  },
+  "about": {
+    "label": "About",
+    "title": "Interfaces that scale, code that <accent>lasts</accent>",
+    "stack": "Stack",
+    "socialLabel": "Profiles"
+  },
+  "services": {
+    "label": "What I do",
+    "title": "From idea to <accent>deploy</accent>",
+    "includes": "includes:"
+  },
+  "experience": {
+    "label": "Experience",
+    "title": "Where I’ve <accent>built</accent>",
+    "present": "present",
+    "current": "current",
+    "stackLabel": "Stack",
+    "deliverablesLabel": "Deliverables at {organization}"
+  },
+  "education": {
+    "label": "Education",
+    "title": "Always learning"
   }
 }

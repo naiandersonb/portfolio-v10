@@ -44,5 +44,28 @@
     "complete": "completar",
     "closeHint": "fechar",
     "openHint": "abre o terminal"
+  },
+  "about": {
+    "label": "Sobre",
+    "title": "Interfaces que escalam, código que <accent>dura</accent>",
+    "stack": "Stack",
+    "socialLabel": "Redes"
+  },
+  "services": {
+    "label": "O que eu faço",
+    "title": "Da ideia ao <accent>deploy</accent>",
+    "includes": "inclui:"
+  },
+  "experience": {
+    "label": "Experiência",
+    "title": "Onde já <accent>construí</accent>",
+    "present": "presente",
+    "current": "atual",
+    "stackLabel": "Stack",
+    "deliverablesLabel": "Entregas na {organization}"
+  },
+  "education": {
+    "label": "Formação",
+    "title": "Estudo contínuo"
   }
 }

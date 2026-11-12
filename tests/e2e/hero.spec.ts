@@ -28,7 +28,7 @@ for (const locale of LOCALES) {
     test("shows only real numbers, with no projects count", async ({ page }) => {
       await page.goto(locale.path);
 
-      const stats = page.getByRole("main").locator("ul[aria-label] > li");
+      const stats = page.locator("main > section").first().locator("ul[aria-label] > li");
       await expect(stats).toHaveCount(2);
       await expect(page.getByText(/projetos|projects/i)).toHaveCount(0);
     });

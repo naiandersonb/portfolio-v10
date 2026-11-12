@@ -83,18 +83,31 @@ body {
     align-items: center;
     gap: 10px;
     font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 1.4;
-    letter-spacing: 0.06em;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--white);
   }
 
   .section-label::before {
     content: "";
+    flex: none;
     width: 8px;
     height: 8px;
     background: var(--lavender);
+  }
+
+  /* Mono caps for meta text: "inclui:", periods, chips. */
+  .caps {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   /* Square lavender bullets. */

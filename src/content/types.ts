@@ -66,6 +66,8 @@ export type Education = {
   year: number;
   /** Tie-breaker when two courses share a year. */
   completedOn?: YearMonth;
+  /** Main subjects, shown after the hours (technical terms, not translated). */
+  topics?: string[];
 };
 
 export type SocialLink = {

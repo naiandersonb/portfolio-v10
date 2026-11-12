@@ -97,6 +97,7 @@ Navegação anterior/próximo é **derivada** (projetos com `caseStudy`, ordenad
 | hours | number | ✓ |
 | year | number | ✓ (ordenação reversa) |
 | completedOn | `YYYY-MM` | – (desempate quando o ano é igual; ex.: Rocketseat PHP 2026-11, Testes e Arquitetura 2026-07) |
+| topics | string[] | – (assuntos principais, sem tradução; ex.: Laravel, MVC, Pest) |
 
 ### SocialLink (N)
 
