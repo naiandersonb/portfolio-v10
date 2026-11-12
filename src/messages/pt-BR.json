@@ -7,7 +7,9 @@
     "logoLabel": "Naianderson Bruno, início",
     "menuLabel": "Seções",
     "languageSwitcher": "Idioma",
-    "openTerminal": "Abrir terminal"
+    "openTerminal": "Abrir terminal",
+    "menuButton": "Menu",
+    "closeMenu": "Fechar menu"
   },
   "menu": {
     "home": "Início",
@@ -28,5 +30,19 @@
     "title": "Página não encontrada",
     "backHome": "Início",
     "contact": "Fale comigo"
+  },
+  "terminal": {
+    "dialogLabel": "Terminal",
+    "title": "Terminal",
+    "path": "naianderson@portfolio: ~",
+    "close": "Fechar terminal",
+    "inputLabel": "Comando",
+    "placeholder": "digite help e Enter",
+    "hintsLabel": "Atalhos",
+    "run": "executar",
+    "history": "histórico",
+    "complete": "completar",
+    "closeHint": "fechar",
+    "openHint": "abre o terminal"
   }
 }

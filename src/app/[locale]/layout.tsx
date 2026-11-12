@@ -5,6 +5,7 @@ import { JetBrains_Mono, Michroma, Outfit } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as readLocaleParam } from "next/root-params";
 import { routing } from "@/i18n/routing";
+import { TerminalRoot } from "@/terminal/terminal-root";
 import "../globals.css";
 
 const michroma = Michroma({
@@ -43,7 +44,9 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
       className={`${michroma.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col overflow-x-clip bg-bg font-sans text-white">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <TerminalRoot>{children}</TerminalRoot>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

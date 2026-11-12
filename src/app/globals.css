@@ -43,6 +43,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The open terminal is full-screen: keep the page behind it from scrolling. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 body {
   background-color: var(--bg);
   color: var(--white);
@@ -53,10 +58,13 @@ body {
   color: var(--bg);
 }
 
-/* The 2px offset keeps the violet ring on bg (6.9:1); touching the lavender button it drops to 1.71:1. */
-:focus-visible {
-  outline: 2px solid var(--violet);
-  outline-offset: 2px;
+/* The 2px offset keeps the violet ring on bg (6.9:1); touching the lavender button it drops to 1.71:1.
+   In the base layer so a control that draws its own focus state (the terminal input) can opt out with a utility. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--violet);
+    outline-offset: 2px;
+  }
 }
 
 @layer components {

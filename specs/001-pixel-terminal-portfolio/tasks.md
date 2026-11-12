@@ -116,25 +116,34 @@ Projeto frontend único na raiz de `portfolio-v10` (ver Project Structure em [pl
 
 ### Tests for User Story 2
 
-- [ ] T039 [P] [US2] Teste unitário em tests/unit/parse-command.test.ts seguindo a gramática de [terminal-commands.md](./contracts/terminal-commands.md): espaços extras, maiúsculas, nome → alias → erro, argumento, prefixo NÃO executa, aliases `?` e `~` resolvem para `help` e `home`, `sudo hire-me` resolve para `sudo` com argumento `hire-me`
-- [ ] T040 [P] [US2] Teste unitário em tests/unit/command-registry.test.ts: nomes, aliases e atalhos únicos; todo `name` e `alias` é um único token que casa com `[a-z-]+ | "?" | "~"`; "Entre 3 e 5 comandos com `hidden: true`"; nenhum oculto na saída do `help`; todo destino de `navigate` não oculto existe em `MENU_ITEMS` (SC-011)
-- [ ] T041 [P] [US2] Teste e2e em tests/e2e/navigation.spec.ts: clique, só teclado com foco visível, terminal por botão/`Ctrl+K`/`/`, Esc devolve o foco ao gatilho, atalho não dispara dentro de input, menu mobile em 375 px; no mobile, o terminal aberto ocupa a viewport dinâmica, o campo de entrada fica dentro de `window.visualViewport` depois de focado e há um botão de fechar visível (edge case "Terminal em celular")
-- [ ] T042 [P] [US2] Teste e2e em tests/e2e/locale.spec.ts: `Accept-Language` `pt-BR`, `pt-PT` e `pt` → `/pt-BR`; `de` e `en-US` → `/en`; troca manual grava cookie; troca em `/pt-BR#contact` vai para `/en#contact` (SC-012)
+- [x] T039 [P] [US2] Teste unitário em tests/unit/parse-command.test.ts seguindo a gramática de [terminal-commands.md](./contracts/terminal-commands.md): espaços extras, maiúsculas, nome → alias → erro, argumento, prefixo NÃO executa, aliases `?` e `~` resolvem para `help` e `home`, `sudo hire-me` resolve para `sudo` com argumento `hire-me`
+- [x] T040 [P] [US2] Teste unitário em tests/unit/command-registry.test.ts: nomes, aliases e atalhos únicos; todo `name` e `alias` é um único token que casa com `[a-z-]+ | "?" | "~"`; "Entre 3 e 5 comandos com `hidden: true`"; nenhum oculto na saída do `help`; todo destino de `navigate` não oculto existe em `MENU_ITEMS` (SC-011)
+- [x] T041 [P] [US2] Teste e2e em tests/e2e/navigation.spec.ts: clique, só teclado com foco visível, terminal por botão/`Ctrl+K`/`/`, Esc devolve o foco ao gatilho, atalho não dispara dentro de input, menu mobile em 375 px; no mobile, o terminal aberto ocupa a viewport dinâmica, o campo de entrada fica dentro de `window.visualViewport` depois de focado e há um botão de fechar visível (edge case "Terminal em celular")
+- [x] T042 [P] [US2] Teste e2e em tests/e2e/locale.spec.ts: `Accept-Language` `pt-BR`, `pt-PT` e `pt` → `/pt-BR`; `de` e `en-US` → `/en`; troca manual grava cookie; troca em `/pt-BR#contact` vai para `/en#contact` (SC-012)
 
 ### Implementation for User Story 2
 
-- [ ] T043 [P] [US2] Criar src/layout/menu-items.ts com `MENU_ITEMS` (home, about, contact: chave i18n, âncora, `GlyphId`), fonte única para menu e invariante
-- [ ] T044 [US2] Criar src/layout/command-menu.tsx: itens em linha com voz de terminal, item ativo em lavanda com sublinhado via IntersectionObserver nas âncoras, versão compacta no mobile (botão + painel acessível) (FR-011, FR-012)
-- [ ] T045 [US2] Criar src/layout/language-switcher.tsx: links PT/EN para o **mesmo pathname e hash** no outro locale usando `getPathname` de src/i18n/navigation.ts, com `hrefLang` e `aria-current` (FR-017, FR-017b)
-- [ ] T046 [US2] Criar src/layout/site-header.tsx com `Logo`, `CommandMenu`, `LanguageSwitcher` e o botão `>_` que abre o terminal (base `@kokonutui/command-button` se aprovado, com reduced-motion adicionado e teclas `Ctrl` `K`); usar em src/app/[locale]/page.tsx
-- [ ] T047 [US2] Criar src/terminal/parse-command.ts: função pura `parseCommand(input, registry)` que devolve `{ ok: true, command, argument } | { ok: false, reason: "not-found" | "empty", input }`
-- [ ] T048 [US2] Criar src/content/commands.ts com o registro declarativo da tabela de [terminal-commands.md](./contracts/terminal-commands.md) (help, home, about, contact, email, cv, lang, clear, exit; `projects` e `open` adiados com a US3) mais os ocultos `sudo` (que responde a `hire-me` e devolve `nice try ;)` para qualquer outro argumento), `neofetch`, `coffee` e `matrix`, com `hidden: true` e textos `Localized`; cada `name`/`alias` é um único token
-- [ ] T049 [US2] Criar src/terminal/run-command.ts: executor que mapeia `action` para efeitos injetados (`navigate`, `setLocale`, `copyEmail`, `downloadCv`, `print`, `effect`, `clear`, `close`) e gera as linhas de saída do contrato; `help` lista só os não ocultos e termina com a dica de segredos (FR-012f)
-- [ ] T050 [US2] Criar src/terminal/use-shortcuts.ts: `Ctrl/⌘+K` e `/` abrem o terminal (comparando `event.key`, nunca `` ` ``, que é tecla morta no ABNT2), sequências `g h|a|c` (`g p` adiado com a US3); ignorar quando o foco está em `input`, `textarea`, `select` ou `[contenteditable]` (FR-012b)
-- [ ] T051 [US2] Criar src/terminal/terminal.tsx (client, carregado sob demanda com `next/dynamic`): `<dialog>` com `showModal()`, entrada com foco ao abrir, histórico com ↑/↓, autocomplete com Tab, saída em `aria-live="polite"`, Esc/botão/`exit` fecham e devolvem o foco, tela cheia abaixo de 768 px com altura em `100dvh` e entrada reposicionada via `visualViewport` para não ficar sob o teclado virtual, efeito `matrix` desligado com reduced-motion (FR-012a, FR-012d)
-- [ ] T052 [US2] Montar o terminal e o hook de atalhos em src/app/[locale]/layout.tsx via um único client island src/terminal/terminal-root.tsx
+- [x] T043 [P] [US2] Criar src/layout/menu-items.ts com `MENU_ITEMS` (home, about, contact: chave i18n, âncora, `GlyphId`), fonte única para menu e invariante
+- [x] T044 [US2] Criar src/layout/command-menu.tsx: itens em linha com voz de terminal, item ativo em lavanda com sublinhado via IntersectionObserver nas âncoras, versão compacta no mobile (botão + painel acessível) (FR-011, FR-012)
+- [x] T045 [US2] Criar src/layout/language-switcher.tsx: links PT/EN para o **mesmo pathname e hash** no outro locale usando `getPathname` de src/i18n/navigation.ts, com `hrefLang` e `aria-current` (FR-017, FR-017b)
+- [x] T046 [US2] Criar src/layout/site-header.tsx com `Logo`, `CommandMenu`, `LanguageSwitcher` e o botão `>_` que abre o terminal (base `@kokonutui/command-button` se aprovado, com reduced-motion adicionado e teclas `Ctrl` `K`); usar em src/app/[locale]/page.tsx
+- [x] T047 [US2] Criar src/terminal/parse-command.ts: função pura `parseCommand(input, registry)` que devolve `{ ok: true, command, argument } | { ok: false, reason: "not-found" | "empty", input }`
+- [x] T048 [US2] Criar src/content/commands.ts com o registro declarativo da tabela de [terminal-commands.md](./contracts/terminal-commands.md) (help, home, about, contact, email, cv, lang, clear, exit; `projects` e `open` adiados com a US3) mais os ocultos `sudo` (que responde a `hire-me` e devolve `nice try ;)` para qualquer outro argumento), `neofetch`, `coffee` e `matrix`, com `hidden: true` e textos `Localized`; cada `name`/`alias` é um único token
+- [x] T049 [US2] Criar src/terminal/run-command.ts: executor que mapeia `action` para efeitos injetados (`navigate`, `setLocale`, `copyEmail`, `downloadCv`, `print`, `effect`, `clear`, `close`) e gera as linhas de saída do contrato; `help` lista só os não ocultos e termina com a dica de segredos (FR-012f)
+- [x] T050 [US2] Criar src/terminal/use-shortcuts.ts: `Ctrl/⌘+K` e `/` abrem o terminal (comparando `event.key`, nunca `` ` ``, que é tecla morta no ABNT2), sequências `g h|a|c` (`g p` adiado com a US3); ignorar quando o foco está em `input`, `textarea`, `select` ou `[contenteditable]` (FR-012b)
+- [x] T051 [US2] Criar src/terminal/terminal.tsx (client, carregado sob demanda com `next/dynamic`): `<dialog>` com `showModal()`, entrada com foco ao abrir, histórico com ↑/↓, autocomplete com Tab, saída em `aria-live="polite"`, Esc/botão/`exit` fecham e devolvem o foco, tela cheia abaixo de 768 px com altura em `100dvh` e entrada reposicionada via `visualViewport` para não ficar sob o teclado virtual, efeito `matrix` desligado com reduced-motion (FR-012a, FR-012d)
+- [x] T052 [US2] Montar o terminal e o hook de atalhos em src/app/[locale]/layout.tsx via um único client island src/terminal/terminal-root.tsx
 
 **Checkpoint**: US1 + US2 = MVP navegável e bilíngue.
+
+**Desvios da Phase 4**:
+
+- T044: o item ativo vem da posição de rolagem (`useSyncExternalStore` em scroll/resize/hashchange) e não de IntersectionObserver, porque `#top` é o `main` inteiro e as outras âncoras seguem vazias até US4/US5
+- T045: o switcher usa o `Link` do next-intl com `locale`, que já resolve o pathname do outro locale e grava o cookie `NEXT_LOCALE`; o hash entra no link depois da hidratação (antes disso o link leva à página sem hash)
+- T046: o `command-button` do KokonutUI perdeu o listener global (os atalhos são de src/terminal/use-shortcuts.ts), a plataforma é lida com `useSyncExternalStore` e o movimento das teclas respeita `motion-reduce`
+- T049: `run-command.ts` é puro e devolve linhas e uma lista de efeitos; quem executa os efeitos é src/terminal/terminal-root.tsx
+- T042: o Playwright define o idioma pelo `locale` do contexto, porque o navegador sobrescreve um `Accept-Language` passado como cabeçalho
+- O foco global (`:focus-visible`) foi para `@layer base`, para que a entrada do terminal, que já marca o foco na borda, possa desligar o anel
 
 ---
 
